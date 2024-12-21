@@ -1,0 +1,26 @@
+2024/12/21-09:25:08.954 e564 Reusing MANIFEST /home/ivan/Área de trabalho/chatbot/chatboot/.wwebjs_auth/session/Default/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2024/12/21-09:25:08.954 e564 Recovering log #156
+2024/12/21-09:25:08.969 e564 Reusing old log /home/ivan/Área de trabalho/chatbot/chatboot/.wwebjs_auth/session/Default/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb/000156.log 
+2024/12/21-09:25:11.264 e5a0 Level-0 table #163: started
+2024/12/21-09:25:11.349 e5a0 Level-0 table #163: 155892 bytes OK
+2024/12/21-09:25:11.405 e5a0 Delete type=0 #156
+2024/12/21-09:25:11.405 e5a0 Manual compaction at level-0 from '\x000\x00\x00\x00' @ 72057594037927935 : 1 .. '\x001\x00\x00\x00' @ 0 : 0; will stop at (end)
+2024/12/21-09:25:11.407 e567 Level-0 table #165: started
+2024/12/21-09:25:11.440 e567 Level-0 table #165: 2939 bytes OK
+2024/12/21-09:25:11.491 e567 Delete type=0 #162
+2024/12/21-09:25:11.491 e567 Manual compaction at level-0 from '\x001\x00\x00\x00' @ 72057594037927935 : 1 .. '\x002\x00\x00\x00' @ 0 : 0; will stop at '\x001\x00\x00\x05' @ 491591 : 0
+2024/12/21-09:25:11.491 e567 Compacting 1@0 + 1@1 files
+2024/12/21-09:25:11.557 e567 Generated table #166@0: 3564 keys, 75958 bytes
+2024/12/21-09:25:11.557 e567 Compacted 1@0 + 1@1 files => 75958 bytes
+2024/12/21-09:25:11.588 e567 compacted to: files[ 0 1 2 0 0 0 0 ]
+2024/12/21-09:25:11.588 e567 Delete type=2 #165
+2024/12/21-09:25:11.589 e567 Manual compaction at level-0 from '\x001\x00\x00\x05' @ 491591 : 0 .. '\x002\x00\x00\x00' @ 0 : 0; will stop at (end)
+2024/12/21-09:25:13.378 e567 Compacting 1@1 + 2@2 files
+2024/12/21-09:25:13.511 e567 Generated table #167@1: 40202 keys, 2208613 bytes
+2024/12/21-09:25:13.628 e567 Generated table #168@1: 79631 keys, 1696282 bytes
+2024/12/21-09:25:13.628 e567 Compacted 1@1 + 2@2 files => 3904895 bytes
+2024/12/21-09:25:13.654 e567 compacted to: files[ 0 0 2 0 0 0 0 ]
+2024/12/21-09:25:13.655 e567 Delete type=2 #166
+2024/12/21-09:25:13.655 e567 Delete type=2 #160
+2024/12/21-09:25:13.655 e567 Delete type=2 #159
+2024/12/21-09:25:13.655 e567 Delete type=2 #163

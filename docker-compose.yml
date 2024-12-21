@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: chatboot-db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: chatboot-db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456789
