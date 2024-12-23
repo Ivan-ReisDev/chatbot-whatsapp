@@ -6,25 +6,41 @@ import { Msg } from 'src/entities/Msg';
 export class RepositoryService {
   constructor(private readonly prisma: PrismaService) {}
 
-  public async findUniqui(number: string): Promise<Msg> {
+  public async findUniqui(number: string, state?: string): Promise<Msg> {
+    const whereConditions: any = {
+      number: number,
+      status: 'active',
+    };
+
+    if (state) {
+      whereConditions.state = state;
+    }
+
     const msg = await this.prisma.messages.findFirst({
-      where: { number: number, status: 'active' },
+      where: whereConditions,
       orderBy: { createdAt: 'desc' },
     });
 
-    if (msg) {
-      return new Msg(msg);
-    }
+    return msg;
   }
 
   public async created(data: Msg) {
-    const msg = await this.prisma.messages.create({
+    await this.prisma.messages.create({
       data: {
         number: data.number,
-        name: data.name || '',
+        name: data.name,
+        state_menu: data.state_menu,
         state: data.state,
         status: 'active',
         msg: data.msg,
+      },
+    });
+  }
+
+  public async deleteHistory(number: string): Promise<void> {
+    await this.prisma.messages.deleteMany({
+      where: {
+        number: number,
       },
     });
   }

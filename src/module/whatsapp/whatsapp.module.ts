@@ -1,13 +1,18 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { WhatsappService } from './whatsapp.service';
-import { RepositoryService } from '../repository/repository.service';
 import { RepositoryModule } from '../repository/repository.module';
+import { MenuModule } from '../menu/menu.module';
 import { ScheduleModule } from '../schedule/schedule.module';
-import { ScheduleService } from '../schedule/schedule.service';
 
 @Module({
-  imports: [EventEmitterModule.forRoot(), RepositoryModule, ScheduleModule],
-  providers: [WhatsappService, RepositoryService, ScheduleService],
+  imports: [
+    EventEmitterModule.forRoot(),
+    RepositoryModule,
+    forwardRef(() => MenuModule),
+    forwardRef(() => ScheduleModule),
+  ],
+  providers: [WhatsappService],
+  exports: [WhatsappService],
 })
 export class WhatsappModule {}

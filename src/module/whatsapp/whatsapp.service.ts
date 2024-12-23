@@ -4,16 +4,18 @@ import { Client, LocalAuth } from 'whatsapp-web.js';
 import * as qrcode from 'qrcode-terminal';
 import { RepositoryService } from '../repository/repository.service';
 import { Msg } from 'src/entities/Msg';
-import { ScheduleService } from '../schedule/schedule.service'; // Importando o serviço de agendamentos
+import { MenuService } from '../menu/menu.service';
+import { ScheduleService } from '../schedule/schedule.service';
 
 @Injectable()
 export class WhatsappService implements OnModuleInit {
-  private client: Client;
+  public client: Client;
 
   constructor(
     private repositorye: RepositoryService,
     private readonly eventEmitter: EventEmitter2,
-    private scheduleService: ScheduleService, // Injetando o serviço de agendamentos
+    private menuService: MenuService,
+    private scheduleService: ScheduleService,
   ) {
     this.client = new Client({
       authStrategy: new LocalAuth(),
@@ -52,7 +54,7 @@ export class WhatsappService implements OnModuleInit {
   private async handleMessage(message: any) {
     try {
       const number = message.from.split('@')[0];
-      const userMessage = await this.repositorye.findUniqui(number);
+      const userMessage: Msg = await this.repositorye.findUniqui(number);
 
       if (!userMessage) {
         await this.client.sendMessage(
@@ -63,48 +65,38 @@ export class WhatsappService implements OnModuleInit {
 
         const responseUser = {
           number: number,
-          name: '',
-          state: 'start',
+          name: 'empty',
+          state_menu: 'empty',
+          state: 'menu',
           msg: message.body,
         };
 
         const newMsg = new Msg(responseUser);
         await this.repositorye.created(newMsg);
-      } else if (userMessage.state === 'start') {
-        const name = message.body.trim();
-
-        const responseUser = {
-          number: number,
-          name: message.body,
-          state: 'menu',
-          msg: message.body,
-        };
-        await this.repositorye.created(new Msg(responseUser));
-
-        await this.client.sendMessage(
-          message.from,
-          `Prazer em conhecer você, ${name}!`,
-        );
-        await this.client.sendMessage(
-          message.from,
-          'Como posso ajudar você hoje? Escolha uma das opções abaixo:\n\n' +
-            '1. Ver meus agendamentos\n' +
-            '2. Criar um novo agendamento\n' +
-            '3. Falar com o suporte\n\n' +
-            'Envie o número da opção desejada.',
-        );
-      } else if (userMessage.state === 'menu') {
-        const responseUser = {
-          number: number,
-          name: userMessage.name,
-          state: 'menu.schedule',
-          msg: message.body,
-        };
-        await this.repositorye.created(new Msg(responseUser));
-
-        // Passa a mensagem para o serviço de agendamento
-        await this.scheduleService.handleSchedulingOption(message);
+      } else {
+        await this.menuService.execute(message, userMessage);
+        switch (userMessage.state) {
+          case 'menu':
+            break;
+          case 'schedule':
+            this.scheduleService.execute(message);
+            break;
+          default:
+            break;
+        }
       }
+      // } else if (userMessage.state === 'menu') {
+      //   const responseUser = {
+      //     number: number,
+      //     name: userMessage.name,
+      //     state: 'menu.schedule',
+      //     msg: message.body,
+      //   };
+      //   await this.repositorye.created(new Msg(responseUser));
+
+      //   // Passa a mensagem para o serviço de agendamento
+      //   //await this.scheduleService.handleSchedulingOption(message);
+      // }
     } catch (error) {
       console.error('Erro no handleMessage:', error);
     }

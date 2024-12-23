@@ -15,11 +15,23 @@ datasource db {
 
 
 model messages {
-  id        String   @id @default(uuid()) 
-  number    String
-  name      String
-  state     String
-  status    String
-  msg       String
-  createdAt DateTime @default(now())      
+  id         String   @id @default(uuid()) 
+  number     String
+  name       String
+  state_menu String
+  state      String
+  status     String
+  msg        String
+  createdAt  DateTime @default(now())      
+}
+
+model schedule {
+  id         String   @id @default(uuid()) 
+  number     String
+  name       String
+  cpf        String
+  time       String
+  status     String
+  data       DateTime
+  createdAt  DateTime @default(now())      
 }

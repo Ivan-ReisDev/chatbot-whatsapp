@@ -1,9 +1,11 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
+import { RepositoryModule } from '../repository/repository.module';
+import { WhatsappModule } from '../whatsapp/whatsapp.module';
 import { ScheduleService } from './schedule.service';
-import { RepositoryService } from '../repository/repository.service';
 
 @Module({
+  imports: [RepositoryModule, forwardRef(() => WhatsappModule)],
   providers: [ScheduleService],
-  exports: [ScheduleService], // Exportando para ser usado em outros módulos, como o WhatsappService
+  exports: [ScheduleService],
 })
 export class ScheduleModule {}

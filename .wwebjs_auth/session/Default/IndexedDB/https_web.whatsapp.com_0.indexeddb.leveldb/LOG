@@ -1,38 +1,17 @@
-2024/12/21-09:33:24.919 f239 Reusing MANIFEST /home/ivan/Área de trabalho/chatbot/chatboot/.wwebjs_auth/session/Default/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
-2024/12/21-09:33:24.919 f239 Recovering log #164
-2024/12/21-09:33:24.947 f239 Reusing old log /home/ivan/Área de trabalho/chatbot/chatboot/.wwebjs_auth/session/Default/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb/000164.log 
-2024/12/21-09:33:27.068 f22b Level-0 table #171: started
-2024/12/21-09:33:27.135 f22b Level-0 table #171: 343788 bytes OK
-2024/12/21-09:33:27.164 f22b Delete type=0 #164
-2024/12/21-09:33:27.165 f226 Manual compaction at level-0 from '\x002\x00\x00\x00' @ 72057594037927935 : 1 .. '\x003\x00\x00\x00' @ 0 : 0; will stop at (end)
-2024/12/21-09:33:27.167 f22b Level-0 table #173: started
-2024/12/21-09:33:27.227 f22b Level-0 table #173: 446 bytes OK
-2024/12/21-09:33:27.256 f22b Delete type=0 #170
-2024/12/21-09:33:27.256 f22b Manual compaction at level-0 from '\x003\x00\x00\x00' @ 72057594037927935 : 1 .. '\x004\x00\x00\x00' @ 0 : 0; will stop at '\x003\x00\x00\x05' @ 503021 : 0
-2024/12/21-09:33:27.256 f22b Compacting 1@0 + 1@1 files
-2024/12/21-09:33:27.311 f22b Generated table #174@0: 6427 keys, 135556 bytes
-2024/12/21-09:33:27.311 f22b Compacted 1@0 + 1@1 files => 135556 bytes
-2024/12/21-09:33:27.339 f22b compacted to: files[ 0 1 2 0 0 0 0 ]
-2024/12/21-09:33:27.339 f22b Delete type=2 #173
-2024/12/21-09:33:27.339 f22b Manual compaction at level-0 from '\x003\x00\x00\x05' @ 503021 : 0 .. '\x004\x00\x00\x00' @ 0 : 0; will stop at (end)
-2024/12/21-09:33:29.195 f22b Compacting 1@1 + 2@2 files
-2024/12/21-09:33:29.329 f22b Generated table #175@1: 41148 keys, 2209573 bytes
-2024/12/21-09:33:29.462 f22b Generated table #176@1: 80021 keys, 1735277 bytes
-2024/12/21-09:33:29.462 f22b Compacted 1@1 + 2@2 files => 3944850 bytes
-2024/12/21-09:33:29.488 f22b compacted to: files[ 0 0 2 0 0 0 0 ]
-2024/12/21-09:33:29.489 f22b Delete type=2 #171
-2024/12/21-09:33:29.489 f22b Delete type=2 #168
-2024/12/21-09:33:29.489 f22b Delete type=2 #174
-2024/12/21-09:33:29.489 f22b Delete type=2 #167
-2024/12/21-09:38:31.266 f27f Level-0 table #178: started
-2024/12/21-09:38:31.308 f27f Level-0 table #178: 549602 bytes OK
-2024/12/21-09:38:31.342 f27f Delete type=0 #172
-2024/12/21-09:38:31.343 f27f Manual compaction at level-0 from '\x005\x00\x00\x00' @ 72057594037927935 : 1 .. '\x006\x00\x00\x00' @ 0 : 0; will stop at (end)
-2024/12/21-09:38:36.644 fa0a Compacting 1@1 + 2@2 files
-2024/12/21-09:38:36.776 fa0a Generated table #179@1: 42347 keys, 2215092 bytes
-2024/12/21-09:38:36.901 fa0a Generated table #180@1: 80910 keys, 1799857 bytes
-2024/12/21-09:38:36.901 fa0a Compacted 1@1 + 2@2 files => 4014949 bytes
-2024/12/21-09:38:36.976 fa0a compacted to: files[ 0 0 2 0 0 0 0 ]
-2024/12/21-09:38:36.977 fa0a Delete type=2 #176
-2024/12/21-09:38:36.977 fa0a Delete type=2 #178
-2024/12/21-09:38:36.977 fa0a Delete type=2 #175
+2024/12/23-14:24:09.815 2c772 Reusing MANIFEST /home/ivan/Área de trabalho/chatbot/chatboot/.wwebjs_auth/session/Default/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2024/12/23-14:24:09.816 2c772 Recovering log #505
+2024/12/23-14:24:09.848 2c772 Reusing old log /home/ivan/Área de trabalho/chatbot/chatboot/.wwebjs_auth/session/Default/IndexedDB/https_web.whatsapp.com_0.indexeddb.leveldb/000505.log 
+2024/12/23-14:24:12.023 2c771 Level-0 table #512: started
+2024/12/23-14:24:12.089 2c771 Level-0 table #512: 331264 bytes OK
+2024/12/23-14:24:12.124 2c771 Delete type=0 #505
+2024/12/23-14:24:12.124 2c771 Manual compaction at level-0 from '\x00\x7f\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x80\x00\x00\x00' @ 0 : 0; will stop at (end)
+2024/12/23-14:24:14.114 2c771 Compacting 1@1 + 3@2 files
+2024/12/23-14:24:14.290 2c771 Generated table #513@1: 67142 keys, 2234463 bytes
+2024/12/23-14:24:14.424 2c771 Generated table #514@1: 54479 keys, 2214420 bytes
+2024/12/23-14:24:14.516 2c771 Generated table #515@1: 49633 keys, 944669 bytes
+2024/12/23-14:24:14.516 2c771 Compacted 1@1 + 3@2 files => 5393552 bytes
+2024/12/23-14:24:14.556 2c771 compacted to: files[ 0 0 3 0 0 0 0 ]
+2024/12/23-14:24:14.557 2c771 Delete type=2 #508
+2024/12/23-14:24:14.557 2c771 Delete type=2 #509
+2024/12/23-14:24:14.557 2c771 Delete type=2 #512
+2024/12/23-14:24:14.557 2c771 Delete type=2 #507
