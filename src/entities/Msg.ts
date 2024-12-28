@@ -5,6 +5,7 @@ export class Msg {
   public state?: string;
   public status?: string;
   public msg?: string;
+  public msgBot?: object;
 
   constructor(props: Msg) {
     Object.assign(this, props);

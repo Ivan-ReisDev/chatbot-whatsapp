@@ -4,48 +4,27 @@ import { WhatsappService } from '../whatsapp/whatsapp.service';
 import { Msg } from 'src/entities/Msg';
 import { RepositoryScheduleService } from '../repository/repository.schedule.service';
 import { Schedule } from 'src/entities/Schedule';
+import { MenuService } from '../menu/menu.service';
+import { ScheduleCreateService } from '../schedule.create/schedule.create.service';
 
 @Injectable()
 export class ScheduleService {
   constructor(
     private repositorye: RepositoryService,
     private repositoryScheduleService: RepositoryScheduleService,
+    @Inject(forwardRef(() => MenuService))
+    private menuService: MenuService,
     @Inject(forwardRef(() => WhatsappService))
     public whatsappService: WhatsappService,
+    @Inject(forwardRef(() => ScheduleCreateService))
+    public scheduleCreateService: ScheduleCreateService,
   ) {}
 
   public async execute(message: any) {
     const number = message.from.split('@')[0];
     const msgDB: Msg = await this.repositorye.findUniqui(number);
 
-    if (msgDB.state_menu === 'empty') {
-      await this.whatsappService.client.sendMessage(
-        message.from,
-        `${msgDB.name}, por favor informe seu CPF para consulta`,
-      );
-
-      const responseUser = {
-        number: msgDB.number,
-        name: msgDB.name,
-        state_menu: 'schedule.consultation',
-        state: 'schedule',
-        msg: message.body,
-      };
-      await this.repositorye.created(new Msg(responseUser));
-      return;
-    }
-
-    if (!this.isValidCPF(message.body.trim())) {
-      await this.whatsappService.client.sendMessage(
-        message.from,
-        `O CPF informado (${message.body.trim()}) é inválido. Por favor, tente novamente.`,
-      );
-      return;
-    }
-
-    const cpf = message.body.replace(/\D/g, '');
-
-    const schedules = await this.repositoryScheduleService.findUniqui(cpf);
+    const schedules = await this.repositoryScheduleService.findUniqui(number);
 
     if (schedules) {
       const newSchedule = new Schedule(schedules);
@@ -65,13 +44,7 @@ export class ScheduleService {
       );
     }
 
-    await this.whatsappService.client.sendMessage(
-      message.from,
-      `CPF válido! Continuando com a consulta...`,
-    );
-    // if (msgDB.state_menu === 'waiting') {
-    //   await this.menuOptions(message, msgDB);
-    // }
+    await this.back(message, msgDB);
   }
 
   private isValidCPF(cpf: string): boolean {
@@ -99,5 +72,18 @@ export class ScheduleService {
     remainder = (sum * 10) % 11;
     if (remainder === 10 || remainder === 11) remainder = 0;
     return remainder === parseInt(cpf.substring(10, 11));
+  }
+
+  private async back(message: any, msg: any) {
+    const responseUser = {
+      number: msg.number,
+      name: msg.name,
+      state_menu: 'back',
+      state: 'menu.schedules.back',
+      msg: message.body,
+    };
+    await this.repositorye.created(new Msg(responseUser));
+
+    await this.menuService.execute(message);
   }
 }

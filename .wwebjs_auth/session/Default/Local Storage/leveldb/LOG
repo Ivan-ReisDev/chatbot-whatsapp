@@ -1,3 +1,6 @@
-2024/12/23-14:24:09.303 2c772 Reusing MANIFEST /home/ivan/Área de trabalho/chatbot/chatboot/.wwebjs_auth/session/Default/Local Storage/leveldb/MANIFEST-000001
-2024/12/23-14:24:09.304 2c772 Recovering log #12
-2024/12/23-14:24:09.304 2c772 Reusing old log /home/ivan/Área de trabalho/chatbot/chatboot/.wwebjs_auth/session/Default/Local Storage/leveldb/000012.log 
+2024/12/28-20:16:21.421 eea5 Reusing MANIFEST /home/ivan/Área de trabalho/chatbot/chatboot/.wwebjs_auth/session/Default/Local Storage/leveldb/MANIFEST-000001
+2024/12/28-20:16:21.423 eea5 Recovering log #4
+2024/12/28-20:16:21.423 eea5 Reusing old log /home/ivan/Área de trabalho/chatbot/chatboot/.wwebjs_auth/session/Default/Local Storage/leveldb/000004.log 
+2024/12/28-20:18:22.283 eea2 Level-0 table #7: started
+2024/12/28-20:18:22.353 eea2 Level-0 table #7: 12840 bytes OK
+2024/12/28-20:18:22.394 eea2 Delete type=0 #4

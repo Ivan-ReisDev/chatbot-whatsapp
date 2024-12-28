@@ -3,6 +3,7 @@ import { RepositoryService } from '../repository/repository.service';
 import { Msg } from 'src/entities/Msg';
 import { WhatsappService } from '../whatsapp/whatsapp.service';
 import { ScheduleService } from '../schedule/schedule.service';
+import { ScheduleCreateService } from '../schedule.create/schedule.create.service';
 
 @Injectable()
 export class MenuService {
@@ -10,29 +11,37 @@ export class MenuService {
     private repositorye: RepositoryService,
     @Inject(forwardRef(() => WhatsappService))
     public whatsappService: WhatsappService,
+    @Inject(forwardRef(() => ScheduleService))
     public scheduleService: ScheduleService,
+    @Inject(forwardRef(() => ScheduleCreateService))
+    public scheduleCreateService: ScheduleCreateService,
   ) {}
 
-  public async execute(message: any, msgDB: Msg) {
+  public async execute(message: any) {
     const number = message.from.split('@')[0];
     const name: string = message.body.trim();
+    const msgDB: Msg = await this.repositorye.findUniqui(number);
+    const responseUser = {
+      number: number,
+      name: msgDB.name !== 'empty' ? msgDB.name : name,
+      state_menu: 'waiting',
+      state: 'menu',
+      msg: message.body,
+    };
     if (msgDB.name === 'empty') {
-      //registra nome
-      const responseUser = {
-        number: number,
-        name: name,
-        state_menu: 'waiting',
-        state: 'menu',
-        msg: message.body,
-      };
       await this.repositorye.created(new Msg(responseUser));
 
       await this.whatsappService.client.sendMessage(
         message.from,
         `Prazer em conhecer você, ${name}!`,
       );
-      await this.templateOptionsMenu(message, msgDB);
+    } else if (
+      msgDB.state === 'menu.schedules.back' &&
+      msgDB.state_menu === 'back'
+    ) {
+      await this.repositorye.created(new Msg(responseUser));
     }
+    await this.templateOptionsMenu(message, msgDB);
 
     if (msgDB.state_menu === 'waiting') {
       await this.menuOptions(message, msgDB);
@@ -40,15 +49,15 @@ export class MenuService {
   }
 
   private async templateOptionsMenu(message: any, msgDB: Msg) {
-    if (msgDB.state_menu === 'empty') {
+    if (msgDB.state_menu === 'empty' || msgDB.state_menu === 'back') {
       await this.whatsappService.client.sendMessage(
         message.from,
-        'Como posso ajudar você hoje? Escolha uma das opções abaixo:\n\n' +
-          '1. Ver meus agendamentos\n' +
-          '2. Criar um novo agendamento\n' +
-          '3. Falar com o suporte\n' +
-          '0. Finalizar atendimento\n\n' +
-          'Envie o número da opção desejada.',
+        `Olá! 👋 Como posso ajudar você hoje?z\nEscolha uma das opções abaixo e envie o número correspondente:  
+      
+      1️⃣ - *Ver meus agendamentos*  
+      2️⃣ - *Criar um novo agendamento*  
+      3️⃣ - *Falar com o suporte*  
+      0️⃣ - *Finalizar atendimento*\n\nEstou aqui para facilitar sua vida! 😊`,
       );
     }
   }
@@ -67,11 +76,19 @@ export class MenuService {
         await this.repositorye.created(new Msg(responseUser));
         await this.scheduleService.execute(message);
         break;
-      //chama menu 2
+
       case '2':
-        console.log('Você selecionou 2');
+        const responseUsertwo = {
+          number: msgDB.number,
+          name: msgDB.name,
+          state_menu: 'empty',
+          state: 'schedule.created',
+          msg: message.body,
+        };
+        await this.repositorye.created(new Msg(responseUsertwo));
+        await this.scheduleCreateService.execute(message);
         break;
-      //chama menu 3
+
       case '3':
         console.log('Você selecionou 3');
         break;

@@ -22,6 +22,7 @@ model messages {
   state      String
   status     String
   msg        String
+  msgBot     Json[] @default([])
   createdAt  DateTime @default(now())      
 }
 
@@ -29,9 +30,15 @@ model schedule {
   id         String   @id @default(uuid()) 
   number     String
   name       String
-  cpf        String
-  time       String
-  status     String
-  data       DateTime
+  time       String   @default("empty")
+  status     String   @default("pending")
+  date       DateTime
+  service    String   @default("empty")
   createdAt  DateTime @default(now())      
+}
+
+model config {
+  id             String   @id @default(uuid()) 
+  operatingHours Json[]
+  createdAt      DateTime @default(now())      
 }

@@ -6,6 +6,7 @@ import { RepositoryService } from '../repository/repository.service';
 import { Msg } from 'src/entities/Msg';
 import { MenuService } from '../menu/menu.service';
 import { ScheduleService } from '../schedule/schedule.service';
+import { ScheduleCreateService } from '../schedule.create/schedule.create.service';
 
 @Injectable()
 export class WhatsappService implements OnModuleInit {
@@ -16,6 +17,7 @@ export class WhatsappService implements OnModuleInit {
     private readonly eventEmitter: EventEmitter2,
     private menuService: MenuService,
     private scheduleService: ScheduleService,
+    private scheduleCreateService: ScheduleCreateService,
   ) {
     this.client = new Client({
       authStrategy: new LocalAuth(),
@@ -59,7 +61,8 @@ export class WhatsappService implements OnModuleInit {
       if (!userMessage) {
         await this.client.sendMessage(
           message.from,
-          `Olá! Seja bem-vindo! \n Meu nome é *Agenda Hora* e meu lema é economia de tempo!`,
+          'Olá! Seja muito bem-vindo(a)! 👋\n' +
+            'Eu sou o *Agenda Hora*, o seu assistente especialista em economizar seu tempo. ⏳',
         );
         await this.client.sendMessage(message.from, 'Qual é o seu nome?');
 
@@ -74,13 +77,17 @@ export class WhatsappService implements OnModuleInit {
         const newMsg = new Msg(responseUser);
         await this.repositorye.created(newMsg);
       } else {
-        await this.menuService.execute(message, userMessage);
+        await this.menuService.execute(message);
         switch (userMessage.state) {
           case 'menu':
             break;
           case 'schedule':
             this.scheduleService.execute(message);
             break;
+          case 'schedule.created':
+            this.scheduleCreateService.execute(message);
+            break;
+
           default:
             break;
         }

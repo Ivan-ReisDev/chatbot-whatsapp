@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { InputJsonValue } from '@prisma/client/runtime/library';
 import { PrismaService } from 'src/database/prisma';
 import { Msg } from 'src/entities/Msg';
 
@@ -33,6 +34,7 @@ export class RepositoryService {
         state: data.state,
         status: 'active',
         msg: data.msg,
+        msgBot: data.msgBot as InputJsonValue[],
       },
     });
   }
